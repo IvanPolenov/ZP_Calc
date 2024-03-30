@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Gui_main app = new Gui_main();
+        app.setVisible(true);
     }
 }
