@@ -36,33 +36,39 @@ class Gui_main extends JFrame {
         container.add(button);
         button.addActionListener(new ButtonEventListener());
     }
+
     class ButtonEventListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
                 double stavka = new Double(input1.getText());
                 double otrabotka = new Double(input2.getText());
                 if (stavka >= 0 && stavka <= 1000000) {
-            double summ = stavka * otrabotka;
-            double ndfl = summ * 0.13;
-            double vidacha = summ - ndfl;
-            double strahovoiVznos = summ * 0.3;
+                    double summ = stavka * otrabotka;
+                    double ndfl = summ * 0.13;
+                    double vidacha = summ - ndfl;
+                    double strahovoiVznos = summ * 0.3;
 
-            String message = "";
-            message += "Расчет зарплаты:\n";
-            message += "Сотрудник "+ input0.getText() + "\n";
-            message += "Форма труда " + (radioButton1.isSelected() ? "Посуточная Оплата": "Почасовая оплата") + "\n";
-            message += "С учетом налогов? " + ((checkBox.isSelected()) ? "Да" : "Нет")+"\n";
-            message += "Зарплата за отработанное время "+ summ +"\n" ;
-            message += "НДФЛ "+ ndfl +"\n" ;
-            message += "К выдаче "+ vidacha +"\n" ;
-            message += "Удержание НДФЛ "+ strahovoiVznos;
-            JOptionPane.showMessageDialog(null, message, " Вывод ",JOptionPane.PLAIN_MESSAGE);
-        }
-            } else {
-                JOptionPane.showMessageDialog(null, "Введите число от 0 до 100000", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                    String formattedSum = String.format("%.2f", summ);
+                    String formattedNdfl = String.format("%.2f", ndfl);
+                    String formattedVidacha = String.format("%.2f", vidacha);
+                    String formattedStrahovoiVznos = String.format("%.2f", strahovoiVznos);
+
+                    String message = "";
+                    message += "Расчет зарплаты:\n";
+                    message += "Сотрудник " + input0.getText() + "\n";
+                    message += "Форма труда " + (radioButton1.isSelected() ? "Посуточная Оплата" : "Почасовая оплата") + "\n";
+                    message += "С учетом налогов? " + ((checkBox.isSelected()) ? "Да" : "Нет") + "\n";
+                    message += "Зарплата за отработанное время " + formattedSum + "\n";
+                    message += "НДФЛ " + formattedNdfl + "\n";
+                    message += "К выдаче " + formattedVidacha + "\n";
+                    message += "Удержание НДФЛ " + formattedStrahovoiVznos;
+                    JOptionPane.showMessageDialog(null, message, " Вывод ", JOptionPane.PLAIN_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Введите число от 0 до 100000", "Ошибка", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Введите корректное число", "Ошибка", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Введите корректное число", "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
