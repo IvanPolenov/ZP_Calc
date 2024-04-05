@@ -38,8 +38,10 @@ class Gui_main extends JFrame {
     }
     class ButtonEventListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            double stavka = new Double(input1.getText());
-            double otrabotka = new Double(input2.getText());
+            try {
+                double stavka = new Double(input1.getText());
+                double otrabotka = new Double(input2.getText());
+                if (stavka >= 0 && stavka <= 1000000) {
             double summ = stavka * otrabotka;
             double ndfl = summ * 0.13;
             double vidacha = summ - ndfl;
@@ -56,6 +58,12 @@ class Gui_main extends JFrame {
             message += "Удержание НДФЛ "+ strahovoiVznos;
             JOptionPane.showMessageDialog(null, message, " Вывод ",JOptionPane.PLAIN_MESSAGE);
         }
-    }
+            } else {
+                JOptionPane.showMessageDialog(null, "Введите число от 0 до 100000", "Ошибка", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Введите корректное число", "Ошибка", JOptionPane.ERROR_MESSAGE);
         }
+    }
+}
 
