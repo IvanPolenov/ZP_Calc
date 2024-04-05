@@ -7,7 +7,7 @@ class Gui_main extends JFrame {
     private JTextField input0 = new JTextField(10);
     private JTextField input1 = new JTextField(10);
     private JTextField input2 = new JTextField(10);
-    private JRadioButton radioButton1 = new JRadioButton(true "Посуточная Оплата");
+    private JRadioButton radioButton1 = new JRadioButton("Посуточная Оплата");
     private JRadioButton radioButton2 = new JRadioButton("Почасовая оплата");
     private JCheckBox checkBox = new JCheckBox("С учетом налогов?");
     private JButton button = new JButton("Рассчитать");
@@ -18,7 +18,7 @@ class Gui_main extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container container = this.getContentPane();
-        container.setBackground(Color.PINK); // Изменение цвета на серый
+        container.setBackground(Color.PINK); // Изменение цвета на розовый
         container.setLayout(new GridLayout(5, 2, 2, 2));
         container.add(new JLabel("Сотрудник:"));
         container.add(input0);
@@ -54,18 +54,23 @@ class Gui_main extends JFrame {
                     String formattedNdfl = String.format("%.2f", ndfl);
                     String formattedVidacha = String.format("%.2f", vidacha);
                     String formattedStrahovoiVznos = String.format("%.2f", strahovoiVznos);
-
+                    // Вывод расчетов по зарплате
                     String message = "";
                     message += "Расчет зарплаты:\n";
                     message += "Сотрудник " + input0.getText() + "\n";
                     message += "Форма труда " + (radioButton1.isSelected() ? "Посуточная Оплата" : "Почасовая оплата") + "\n";
                     message += "С учетом налогов? " + ((checkBox.isSelected()) ? "Да" : "Нет") + "\n";
                     message += "Зарплата за отработанное время " + formattedSum + "\n";
-                    message += "НДФЛ " + formattedNdfl + "\n";
+                    if (checkBox.isSelected()) {
+                        message += "НДФЛ " + formattedNdfl + "\n";
+                        message += "Удержание страхового взноса " + formattedStrahovoiVznos + "\n";
+                    }
                     message += "К выдаче " + formattedVidacha + "\n";
                     message += "Удержание НДФЛ " + formattedStrahovoiVznos;
                     JOptionPane.showMessageDialog(null, message, " Вывод ", JOptionPane.PLAIN_MESSAGE);
-                } else {
+                }
+                // Сообщение при вводе некоректных данных
+                else {
                     JOptionPane.showMessageDialog(null, "Введите число от 0 до 100000", "Ошибка", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (NumberFormatException ex) {
