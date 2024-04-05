@@ -66,7 +66,6 @@ class Gui_main extends JFrame {
                         message += "Удержание страхового взноса " + formattedStrahovoiVznos + "\n";
                     }
                     message += "К выдаче " + formattedVidacha + "\n";
-                    message += "Удержание НДФЛ " + formattedStrahovoiVznos;
                     JOptionPane.showMessageDialog(null, message, " Вывод ", JOptionPane.PLAIN_MESSAGE);
                 }
                 // Сообщение при вводе некоректных данных
