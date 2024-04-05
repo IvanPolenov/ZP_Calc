@@ -7,11 +7,11 @@ class Gui_main extends JFrame {
     private JTextField input0 = new JTextField(10);
     private JTextField input1 = new JTextField(10);
     private JTextField input2 = new JTextField(10);
-    private JRadioButton radioButton1 = new JRadioButton("Посуточная Оплата");
+    private JRadioButton radioButton1 = new JRadioButton(true "Посуточная Оплата");
     private JRadioButton radioButton2 = new JRadioButton("Почасовая оплата");
     private JCheckBox checkBox = new JCheckBox("С учетом налогов?");
     private JButton button = new JButton("Рассчитать");
-
+    // класс графического отображения
     public Gui_main() {
         System.out.println("Расчетный лист");
         this.setBounds(100, 100, 280, 160);
@@ -29,6 +29,7 @@ class Gui_main extends JFrame {
 
         ButtonGroup group = new ButtonGroup();
         group.add(radioButton1);
+        radioButton1.setSelected(true);
         group.add(radioButton2);
         container.add(radioButton1);
         container.add(radioButton2);
@@ -42,12 +43,13 @@ class Gui_main extends JFrame {
             try {
                 double stavka = new Double(input1.getText());
                 double otrabotka = new Double(input2.getText());
-                if (stavka >= 0 && stavka <= 1000000) {
+                // отсеивание символов в числовом поле
+                if (stavka >= 0 && stavka <= 1000000 && otrabotka>0 && otrabotka < 100000) {
                     double summ = stavka * otrabotka;
-                    double ndfl = summ * 0.13;
+                    double ndfl = checkBox.isSelected() ? summ * 0.13 : 0;
                     double vidacha = summ - ndfl;
                     double strahovoiVznos = summ * 0.3;
-
+// ограничение на ввывод символов после точки
                     String formattedSum = String.format("%.2f", summ);
                     String formattedNdfl = String.format("%.2f", ndfl);
                     String formattedVidacha = String.format("%.2f", vidacha);
